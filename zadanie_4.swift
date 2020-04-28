@@ -54,6 +54,11 @@ class CheckListElement: CustomStringConvertible, CheckListElementProtocol
 class CheckList
 {
     var CheckListElementArray: Array <CheckListElement>
+    
+    init(CheckListElementArray: Array <CheckListElement>)
+    {
+        self.CheckListElementArray = CheckListElementArray
+    }
 }
 
 let list = CheckListElement()

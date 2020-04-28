@@ -53,7 +53,7 @@ class CheckListElement: CustomStringConvertible, CheckListElementProtocol
 
 class CheckList
 {
-    
+    var CheckListElementArray: Array <CheckListElement>
 }
 
 let list = CheckListElement()

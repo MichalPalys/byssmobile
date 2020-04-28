@@ -3,19 +3,9 @@ enum Day
     case Poniedziałek, Wtorek, Środa, Czwartek, Piątek, Sobota, Niedziela
 }
 
-enum TaskStatus
+enum TaskStatus: String
 {
-    case done, toDo
-    
-    func getDescriptionOfTaskStatus() -> String
-    {
-        switch self {
-            case .done:
-                return "Gotowe"
-            case .toDo:
-                return "Do Wykonania"
-        }
-    }
+    case done = "Gotowe", toDo = "Do Wykonania"
 }
 
 protocol CheckListElementProtocol
@@ -57,7 +47,7 @@ class CheckListElement: CustomStringConvertible, CheckListElementProtocol
     }
     
     var description: String {
-        return "\(dayOfWeek) Wyjść na spacer \(taskReadyOrToDo.getDescriptionOfTaskStatus())"
+        return "\(dayOfWeek) Wyjść na spacer \(taskReadyOrToDo.rawValue)"
     }
 }
 

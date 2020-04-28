@@ -61,6 +61,11 @@ class CheckListElement: CustomStringConvertible, CheckListElementProtocol
     }
 }
 
+class CheckList
+{
+    
+}
+
 let list = CheckListElement()
 print(list)
 list.switchStateOfTask()

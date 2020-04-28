@@ -12,11 +12,19 @@ protocol CheckListElementProtocol
 {
     var taskReadyOrToDo: TaskStatus {get set}
 }
+
+protocol CheckListDelegate
+{
+    // var CheckListElementArray: Array <CheckListElement>
+    
+    func getAllCheckListElements() -> Array <CheckListElement>
+}
  
 class CheckListElement: CustomStringConvertible, CheckListElementProtocol
 {
     var dayOfWeek: Day
     var taskReadyOrToDo: TaskStatus
+    var checkListDelegate: CheckListDelegate?
     
     init(dayOfWeek: Day, taskReadyOrToDo: TaskStatus)
     {
@@ -44,6 +52,8 @@ class CheckListElement: CustomStringConvertible, CheckListElementProtocol
         } else {
             taskReadyOrToDo = .done
         }
+        
+        print(checkListDelegate?.getAllCheckListElements() as Any)
     }
     
     var description: String {
@@ -51,17 +61,31 @@ class CheckListElement: CustomStringConvertible, CheckListElementProtocol
     }
 }
 
-class CheckList
+class CheckList: CheckListDelegate
 {
-    var CheckListElementArray: Array <CheckListElement>
+    var checkListElementArray: Array <CheckListElement>
     
-    init(CheckListElementArray: Array <CheckListElement>)
+    init(checkListElementArray: Array <CheckListElement>)
     {
-        self.CheckListElementArray = CheckListElementArray
+        self.checkListElementArray = checkListElementArray
+    }
+    
+    func getAllCheckListElements() -> Array <CheckListElement>
+    {
+        return checkListElementArray
     }
 }
 
-let list = CheckListElement()
-print(list)
-list.switchStateOfTask()
-print(list)
+let listElement1 = CheckListElement(dayOfWeek: Day.Poniedziałek, taskReadyOrToDo: TaskStatus.toDo)
+
+let listElement2 = CheckListElement(dayOfWeek: Day.Środa, taskReadyOrToDo: TaskStatus.toDo)
+
+let listElement3 = CheckListElement(dayOfWeek: Day.Piątek, taskReadyOrToDo: TaskStatus.toDo)
+
+var checkListElements = [listElement1, listElement2, listElement3]
+
+let list = CheckList(checkListElementArray: checkListElements)
+
+listElement1.checkListDelegate = list
+
+listElement1.switchStateOfTask()
